@@ -50,3 +50,13 @@ PawPal+ includes several scheduling improvements:
 - Filters tasks by pet name or completion status
 - Automatically creates the next task for daily or weekly recurring events
 - Detects simple scheduling conflicts when two tasks are set for the same exact time
+
+
+## Testing PawPal+
+
+Run the automated tests with:
+
+```bash
+python -m pytest
+
+My tests cover the main backend features of PawPal+. They check that a task can be marked complete, that adding a task to a pet increases the pet’s task count, that tasks are sorted in the correct time order, that recurring tasks create a new future task when completed, that conflicts are detected when two tasks have the same time, and that filtering works by task status and pet name.
