@@ -12,9 +12,9 @@ A busy pet owner needs help staying consistent with pet care. They want an assis
 
 Your job is to design the system first (UML), then implement the logic in Python, then connect it to the Streamlit UI.
 
-## What you will build
+## What I built
 
-Your final app should:
+My final app:
 
 - Let a user enter basic owner + pet info
 - Let a user add/edit tasks (duration + priority at minimum)
@@ -32,7 +32,7 @@ source .venv/bin/activate  # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-### Suggested workflow
+### workflow
 
 1. Read the scenario carefully and identify requirements and edge cases.
 2. Draft a UML diagram (classes, attributes, methods, relationships).
@@ -51,6 +51,19 @@ PawPal+ includes several scheduling improvements:
 - Automatically creates the next task for daily or weekly recurring events
 - Detects simple scheduling conflicts when two tasks are set for the same exact time
 
+## Features
+
+- Add and manage multiple pets
+- Add pet care tasks with date, time, duration, and priority
+- View a daily schedule sorted by time
+- Filter tasks by pet name or completion status
+- Detect task conflicts when two tasks share the same time
+- Support recurring daily and weekly tasks
+- Mark tasks complete and automatically create the next recurring task
+
+## 📸 Demo
+
+![PawPal+ App Screenshot](demo.png)
 
 ## Testing PawPal+
 
@@ -60,3 +73,7 @@ Run the automated tests with:
 python -m pytest
 
 My tests cover the main backend features of PawPal+. They check that a task can be marked complete, that adding a task to a pet increases the pet’s task count, that tasks are sorted in the correct time order, that recurring tasks create a new future task when completed, that conflicts are detected when two tasks have the same time, and that filtering works by task status and pet name.
+
+All 6 tests passed successfully.
+
+Confidence Level: ★★★★★ (5/5)
