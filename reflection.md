@@ -25,12 +25,18 @@ Yes, my design changed during implementation. At first, I had two different plac
 **a. Constraints and priorities**
 
 - What constraints does your scheduler consider (for example: time, priority, preferences)?
+My scheduler mainly considers time, task status, and which pet the task belongs to. It organizes tasks by due time so the schedule is shown in the correct order. It also checks whether a task is completed or not, and it can filter tasks for a specific pet when needed. For repeating care, it also considers whether a task is one-time, daily, or weekly.
+
 - How did you decide which constraints mattered most?
+I decided these constraints mattered most because they are the most useful for a pet care app. The owner needs to know what should be done first, which pet needs attention, and whether a task still needs to be completed. I focused on these because they make the schedule clear and practical without making the system too complicated.
 
 **b. Tradeoffs**
 
 - Describe one tradeoff your scheduler makes.
+One tradeoff my scheduler makes is that conflict detection is very simple. It only checks if two tasks are scheduled at the exact same time instead of checking for more detailed overlaps in task duration.
+
 - Why is that tradeoff reasonable for this scenario?
+This tradeoff is reasonable for this scenario because the goal of the project is to build a simple and working pet care scheduler, not a highly advanced planning system. Using exact-time conflict detection keeps the code easier to understand and still helps catch obvious scheduling problems.
 
 ---
 
