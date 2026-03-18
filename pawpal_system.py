@@ -1,10 +1,12 @@
 from __future__ import annotations
 
-from datetime import datetime
+from dataclasses import dataclass
+from datetime import datetime, timedelta
 from typing import List, Optional
 
 
 class Owner:
+     """Represents a pet owner who manages multiple pets."""
     def __init__(self, id: str, name: str, email: str):
         self.id: str = id
         self.name: str = name
@@ -12,77 +14,73 @@ class Owner:
         self.pets: List[Pet] = []
 
     def add_pet(self, pet: "Pet") -> None:
-        pass
+        if pet not in self.pets:
+            self.pets.append(pet)
 
     def remove_pet(self, pet_id: str) -> None:
-        pass
+        self.pets = [pet for pet in self.pets if pet.id != pet_id]
 
     def get_pets(self) -> List["Pet"]:
-        pass
+        return self.pets
 
 
+@dataclass
 class Pet:
-    def __init__(
-        self,
-        id: str,
-        name: str,
-        species: str,
-        breed: str,
-        owner: Owner,
-        scheduler: "Scheduler",
-    ):
-        self.id: str = id
-        self.name: str = name
-        self.species: str = species
-        self.breed: str = breed
-        self.owner: Owner = owner
-        self.scheduler: "Scheduler" = scheduler
+
+    """Represents a pet connected to an owner and scheduler."""
+
+    id: str
+    name: str
+    species: str
+    breed: str
+    owner: Owner
+    scheduler: "Scheduler"
 
     def add_task(self, task: "Task") -> None:
-        pass
+        self.scheduler.schedule_task(task)
 
     def remove_task(self, task_id: str) -> None:
-        pass
+        self.scheduler.tasks = [t for t in self.scheduler.tasks if t.id != task_id]
 
     def get_tasks(self) -> List["Task"]:
-        pass
+        return [t for t in self.scheduler.tasks if t.pet.id == self.id]
 
 
+@dataclass
 class Task:
-    def __init__(
-        self,
-        id: str,
-        title: str,
-        description: str,
-        due_date: datetime,
-        pet: Pet,
-    ):
-        self.id: str = id
-        self.title: str = title
-        self.description: str = description
-        self.due_date: datetime = due_date
-        self.completed: bool = False
-        self.pet: Pet = pet
+    """Represents a care task assigned to a pet."""
+    id: str
+    title: str
+    description: str
+    due_date: datetime
+    completed: bool = False
+    pet: Pet = None
 
     def mark_complete(self) -> None:
-        pass
+        self.completed = True
 
     def reschedule(self, new_date: datetime) -> None:
-        pass
+        self.due_date = new_date
 
 
 class Scheduler:
+    """Stores and retrieves scheduled pet tasks."""
     def __init__(self):
         self.tasks: List[Task] = []
 
     def schedule_task(self, task: Task) -> None:
-        pass
+        self.tasks.append(task)
 
     def get_tasks_for_date(self, date: datetime) -> List[Task]:
-        pass
+        return [t for t in self.tasks if t.due_date.date() == date.date()]
 
     def get_tasks_for_pet(self, pet_id: str) -> List[Task]:
-        pass
+        return [t for t in self.tasks if t.pet.id == pet_id]
 
     def notify_upcoming_tasks(self) -> None:
-        pass
+        # Simple notification: print upcoming tasks within the next 24 hours
+        now = datetime.now()
+        upcoming = [t for t in self.tasks if not t.completed and now <= t.due_date <= now + timedelta(days=1)]
+        for task in upcoming:
+            print(f"Upcoming task: {task.title} for {task.pet.name} at {task.due_date}")
+
